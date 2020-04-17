@@ -1,0 +1,22 @@
+{
+	"name": "endb-k8s",
+	"version": "0.0.0",
+	"main": "endb.js",
+	"license": "MIT",
+	"dependencies": {
+		"@kubernetes/client-node": "^0.11.1"
+	},
+	"peerDependencies": {
+		"endb": "^0.22.7"
+	},
+	"devDependencies": {
+		"husky": "^4.2.5",
+		"prettier": "^2.0.4",
+		"pretty-quick": "^2.0.1"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "pretty-quick --staged"
+		}
+	}
+}
