@@ -7,6 +7,11 @@ const createAdapter = async options => {
 	return {
 		type: kubernetes.types.EndbData,
 		namespace: 'default',
+
+		removeUselessPrefix(key) {
+			return key.replace(`${this.namespace}:`, '');
+		},
+
 		async all() {
 			const result = await client.getAllInNamespace({ ...this });
 			return result.items.map(item => ({ key: item.metadata.name, value: item.value }));
