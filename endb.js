@@ -1,5 +1,8 @@
 const kubernetes = require('./kubernetes');
 
+const isErrorCode = (expectedStatusCode, error) =>
+	error && error.response && error.response.status === expectedStatusCode;
+
 const createAdapter = async options => {
 	const client = kubernetes.createClient(options);
 	await client.applyCRD();
@@ -20,16 +23,27 @@ const createAdapter = async options => {
 			await client.deleteAllInNamespace({ ...this });
 		},
 		async delete(name) {
+			name = this.removeUselessPrefix(name);
 			await client.delete({ ...this, name });
 		},
 		async get(name) {
-			const result = await client.get({ ...this, name });
-			return result.value;
+			try {
+				name = this.removeUselessPrefix(name);
+				const result = await client.get({ ...this, name });
+				return result.value;
+			} catch (e) {
+				if (isErrorCode(404, e)) {
+					return null;
+				} else {
+					throw e;
+				}
+			}
 		},
 		async has(name) {
-			await client.get({ ...this, name });
+			return (await this.get(name)) !== null;
 		},
 		async set(name, value) {
+			name = this.removeUselessPrefix(name);
 			const body = {
 				apiVersion: 'hubc.app/v1',
 				kind: 'EndbData',
