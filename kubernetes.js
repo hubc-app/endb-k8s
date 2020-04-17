@@ -13,8 +13,8 @@ class Client {
 
 	createConfig(options) {
 		const config = new k8s.KubeConfig();
-		if (options) {
-			config.loadFromOptions(options);
+		if (options && options.kubeconfig) {
+			config.loadFromOptions(options.kubeconfig);
 		} else {
 			config.loadFromDefault();
 		}
@@ -37,6 +37,7 @@ class Client {
 		};
 		config.applyToRequest(options);
 
+		options.headers = { common: { ...options.headers } };
 		return axios.default.create(options);
 	}
 

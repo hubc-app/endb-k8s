@@ -5,7 +5,9 @@ const isErrorCode = (expectedStatusCode, error) =>
 
 const createAdapter = async options => {
 	const client = kubernetes.createClient(options);
-	await client.applyCRD();
+	if (!(options && options.skipApplyingCRD)) {
+		await client.applyCRD();
+	}
 
 	return {
 		type: kubernetes.types.EndbData,
