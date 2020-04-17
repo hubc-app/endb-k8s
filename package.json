@@ -4,7 +4,9 @@
 	"main": "endb.js",
 	"license": "MIT",
 	"dependencies": {
-		"@kubernetes/client-node": "^0.11.1"
+		"@kubernetes/client-node": "^0.11.1",
+		"axios": "^0.19.2",
+		"kubernetes-client": "^8.3.7"
 	},
 	"peerDependencies": {
 		"endb": "^0.22.7"

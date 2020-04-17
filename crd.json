@@ -1,0 +1,42 @@
+{
+	"apiVersion": "apiextensions.k8s.io/v1",
+	"kind": "CustomResourceDefinition",
+	"metadata": {
+		"name": "endbdata.hubc.app"
+	},
+	"spec": {
+		"scope": "Namespaced",
+		"group": "hubc.app",
+		"names": {
+			"kind": "EndbData",
+			"singular": "endbdatum",
+			"plural": "endbdata",
+			"shortNames": ["endb"]
+		},
+		"versions": [
+			{
+				"name": "v1",
+				"served": true,
+				"storage": true,
+				"additionalPrinterColumns": [
+					{
+						"name": "Value",
+						"type": "string",
+						"jsonPath": ".value"
+					}
+				],
+				"schema": {
+					"openAPIV3Schema": {
+						"type": "object",
+						"required": ["value"],
+						"properties": {
+							"value": {
+								"type": "string"
+							}
+						}
+					}
+				}
+			}
+		]
+	}
+}
