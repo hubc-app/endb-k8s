@@ -1,6 +1,6 @@
 # endb-k8s
 
-This is a third-party adapter for [endb](https://endb.js.org/) to use kubernetes
+This is a third-party adapter for [endb](https://github.com/chroventer/endb) to use kubernetes
 as a backing store.
 
 This allows us to use the etcd instance used by kubernetes itself to store our data.
